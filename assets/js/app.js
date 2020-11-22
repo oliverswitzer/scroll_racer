@@ -24,7 +24,7 @@ Hooks.Scroll = {
   mounted() {
     const handleScroll = throttle((e) => {
       console.log("Hello from inside throttle?")
-      this.pushEvent("scrolling", { offset_y: e.offsetY })
+      this.pushEvent("scrolling", { offset_y: e.deltaY })
     }, 50)
 
     window.addEventListener('wheel', handleScroll)
