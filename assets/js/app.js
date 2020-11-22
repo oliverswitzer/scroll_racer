@@ -16,9 +16,25 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
+import throttle from 'lodash/throttle'
 
+let Hooks = {}
+
+Hooks.Scroll = {
+  mounted() {
+    const handleScroll = throttle((e) => {
+      console.log("Hello from inside throttle?")
+      this.pushEvent("scrolling", { offset_y: e.offsetY })
+    }, 50)
+
+    window.addEventListener('wheel', handleScroll)
+  }
+}
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {
+  hooks: Hooks,
+  params: {_csrf_token: csrfToken}
+})
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
