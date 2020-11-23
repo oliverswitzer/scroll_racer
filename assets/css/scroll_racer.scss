@@ -1,0 +1,20 @@
+body {
+  overscroll-behavior-x: none;
+}
+
+section {
+  margin-top: 3em;
+  position: relative;
+  display: block;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+.dig-box {
+  width: 20px;
+  height: 20px;
+  background-color: #d61919;
+  position: absolute;
+}
